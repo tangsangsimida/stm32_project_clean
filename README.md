@@ -1,5 +1,8 @@
 # STM32项目清理工具
 
+[![版本](https://img.shields.io/badge/版本-1.0-blue.svg)](https://github.com/username/stm32_project_clean/releases/tag/v1.0)
+[![许可证](https://img.shields.io/badge/许可证-GPL--3.0-green.svg)](LICENSE)
+
 一个专为STM32项目设计的命令行工具，用于清理编译过程中产生的中间文件，保留重要的可执行文件和源代码。
 
 ## 功能特点
