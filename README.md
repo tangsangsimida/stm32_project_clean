@@ -19,7 +19,7 @@
 1. 下载脚本文件：
 
 ```bash
-wget https://raw.githubusercontent.com/username/stm32-tools/main/stm32_project_clean.sh
+wget https://raw.githubusercontent.com/username/stm32_project_clean/main/stm32_project_clean.sh
 ```
 
 2. 添加执行权限：
