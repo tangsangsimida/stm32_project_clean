@@ -19,7 +19,7 @@
 1. 下载脚本文件：
 
 ```bash
-wget https://raw.githubusercontent.com/username/stm32_project_clean/main/stm32_project_clean.sh
+git clone git@github.com:tangsangsimida/stm32_project_clean.git
 ```
 
 2. 添加执行权限：
