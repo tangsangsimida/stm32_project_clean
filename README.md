@@ -1,6 +1,6 @@
 # STM32项目清理工具
 
-[![版本](https://img.shields.io/badge/版本-1.1-blue.svg)](https://github.com/username/stm32_project_clean/releases/tag/v1.1)
+[![版本](https://img.shields.io/badge/版本-1.0.1-blue.svg)](https://github.com/username/stm32_project_clean/releases/tag/v1.0.1)
 [![许可证](https://img.shields.io/badge/许可证-GPL--3.0-green.svg)](LICENSE)
 
 一个专为STM32项目设计的命令行工具，用于清理编译过程中产生的中间文件，保留重要的可执行文件和源代码。
@@ -184,7 +184,9 @@ sudo mv stm32_project_clean.sh /usr/local/bin/
 
 ## 版本历史
 
-### V1.1 (2023-11-20)
+### V1.0.1 (2023-11-25)
+- 添加额外后缀选项（-s/--suffix 选项），可以指定额外的文件后缀进行清理
+
 - 添加备份功能（-b/--backup 和 -B/--backup-dir 选项）
 - 添加排除目录功能（-e/--exclude 选项）
 - 添加最大递归深度限制（-m/--max-depth 选项）
