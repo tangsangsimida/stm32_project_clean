@@ -3,7 +3,7 @@
 
 """
 stm32_project_clean.py - 清理STM32项目中的中间编译文件
-版本：1.0.1
+版本：1.1.0
 作者：Dennis_Re_Yoonjiho
 GitHub: https://github.com/username/stm32_project_clean
 许可证：GNU General Public License v3.0
@@ -26,6 +26,26 @@ import glob
 import fnmatch
 import stat
 from typing import List, Dict, Any, Tuple, Optional
+
+# 导入环境检测模块
+try:
+    import environment_check
+    ENVIRONMENT_CHECK_AVAILABLE = True
+except ImportError:
+    ENVIRONMENT_CHECK_AVAILABLE = False
+
+# 定义颜色常量
+try:
+    import colorama
+    colorama.init()
+    RED = colorama.Fore.RED
+    GREEN = colorama.Fore.GREEN
+    YELLOW = colorama.Fore.YELLOW
+    BLUE = colorama.Fore.BLUE
+    NC = colorama.Style.RESET_ALL  # No Color (重置)
+except ImportError:
+    # 如果没有colorama，使用空字符串
+    RED = GREEN = YELLOW = BLUE = NC = ""
 
 # 颜色定义（支持Windows和Unix/Linux）
 try:
@@ -167,10 +187,36 @@ def backup_file(file_path: str, target_dir: str, backup_dir: str) -> bool:
 
 def main() -> None:
     """主函数"""
-    # 解析命令行参数
+    # 执行环境检测
+    if ENVIRONMENT_CHECK_AVAILABLE:
+        # 添加命令行参数解析器
+        parser = argparse.ArgumentParser(description='STM32项目清理工具', add_help=False)
+        parser.add_argument('-h', '--help', action='store_true', help='显示帮助信息')
+        parser.add_argument('-v', '--version', action='store_true', help='显示版本信息')
+        parser.add_argument('--skip-env-check', action='store_true', help='跳过环境检测')
+        parser.add_argument('target_dir', nargs='?', default='.', help='目标目录')
+        
+        # 仅解析需要的参数
+        args, _ = parser.parse_known_args()
+        
+        # 如果不是显示帮助或版本信息，且未跳过环境检测，则执行环境检测
+        if not (args.help or args.version or args.skip_env_check):
+            target_dir = os.path.abspath(args.target_dir)
+            env_check_passed, _ = environment_check.check_environment(target_dir)
+            
+            if not env_check_passed:
+                print(f"{YELLOW}警告:{NC} 环境检测未通过。这可能会影响程序的正常运行。")
+                response = input(f"{YELLOW}是否继续运行?{NC} [y/N]: ")
+                if not response.lower().startswith('y'):
+                    print(f"{RED}操作已取消{NC}")
+                    sys.exit(1)
+                print()  # 添加空行分隔
+    
+    # 重新解析所有命令行参数
     parser = argparse.ArgumentParser(description='STM32项目清理工具', add_help=False)
     parser.add_argument('-h', '--help', action='store_true', help='显示帮助信息')
     parser.add_argument('-v', '--version', action='store_true', help='显示版本信息')
+    parser.add_argument('--skip-env-check', action='store_true', help='跳过环境检测')
     parser.add_argument('-d', '--dry-run', action='store_true', help='预览将要删除的文件，不实际删除')
     parser.add_argument('-V', '--verbose', action='store_true', help='显示详细信息')
     parser.add_argument('-k', '--keep-libs', action='store_true', help='保留库文件 (.a, .so)')

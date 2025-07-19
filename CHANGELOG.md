@@ -5,6 +5,25 @@
 格式基于 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.0.0/)，
 并且本项目遵循 [语义化版本](https://semver.org/lang/zh-CN/)。
 
+## [1.2.0] - 2023-12-10
+
+### 新增
+- 环境检测模块 (environment_check.py)，用于检查系统环境是否满足运行条件
+- Linux/macOS 安装脚本 (install_unix.sh)，提供完整的安装流程
+- 命令行参数 `--skip-env-check` 用于跳过环境检测
+- 详细的项目文档 (README.md)
+
+### 改进
+- 增强 Windows 批处理文件，添加更详细的环境检测
+- 增强 Linux/macOS shell 脚本，添加彩色输出和错误处理
+- 改进错误提示和用户引导
+- 优化彩色输出，添加更多颜色区分不同类型的信息
+- 添加 Python 版本检查，确保兼容性
+
+### 修复
+- 修复在某些环境下颜色显示不正确的问题
+- 修复权限检查逻辑
+
 ## [1.1.0] - 2023-11-15
 
 ### 新增
