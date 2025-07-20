@@ -1,8 +1,8 @@
 @echo off
-REM STM32项目清理工具 - Windows批处理启动脚本
-REM 此脚本用于在Windows环境中方便地启动Python清理脚本
+REM STM32��Ŀ�������� - Windows�����������ű�
+REM �˽ű�������Windows�����з��������Python�����ű�
 
-REM 定义颜色常量
+REM ������ɫ����
 set "RED=31"
 set "GREEN=32"
 set "YELLOW=33"
@@ -11,106 +11,106 @@ set "MAGENTA=35"
 set "CYAN=36"
 set "WHITE=37"
 
-REM 颜色输出函数
+REM ��ɫ�������
 call :DefineColorEcho
 
-echo [%BLUE%]STM32项目清理工具 - Windows启动脚本[0m]
+echo [%BLUE%]STM32��Ŀ�������� - Windows�����ű�[0m]
 echo [%BLUE%]===================================[0m]
 echo.
 
-REM 检查管理员权限
+REM ������ԱȨ��
 net session >nul 2>&1
 set IS_ADMIN=0
 if %ERRORLEVEL% EQU 0 (
     set IS_ADMIN=1
 )
 
-REM 检查Python是否安装
-call :ColorEcho %WHITE% "检查Python环境..."
+REM ���Python�Ƿ�װ
+call :ColorEcho %WHITE% "���Python����..."
 python --version >nul 2>&1
 if %ERRORLEVEL% neq 0 (
-    call :ColorEcho %RED% "[错误]" & echo  未找到Python。请安装Python 3.6或更高版本。
-    echo 您可以从 https://www.python.org/downloads/ 下载Python。
+    call :ColorEcho %RED% "[����]" & echo  δ�ҵ�Python���밲װPython 3.6����߰汾��
+    echo �����Դ� https://www.python.org/downloads/ ����Python��
     pause
     exit /b 1
 )
 
-REM 检查Python版本
+REM ���Python�汾
 for /f "tokens=2" %%I in ('python --version 2^>^&1') do set PYTHON_VERSION=%%I
-call :ColorEcho %WHITE% "检测到Python版本: %PYTHON_VERSION%"
+call :ColorEcho %WHITE% "��⵽Python�汾: %PYTHON_VERSION%"
 echo.
 
-REM 检查Python版本是否满足要求 (3.6+)
+REM ���Python�汾�Ƿ�����Ҫ�� (3.6+)
 python -c "import sys; sys.exit(0 if sys.version_info >= (3, 6) else 1)" >nul 2>&1
 if %ERRORLEVEL% neq 0 (
-    call :ColorEcho %RED% "[错误]" & echo  Python版本过低。需要Python 3.6或更高版本。
-    echo 当前版本: %PYTHON_VERSION%
-    echo 请从 https://www.python.org/downloads/ 下载更新的Python版本。
+    call :ColorEcho %RED% "[����]" & echo  Python�汾���͡���ҪPython 3.6����߰汾��
+    echo ��ǰ�汾: %PYTHON_VERSION%
+    echo ��� https://www.python.org/downloads/ ���ظ��µ�Python�汾��
     pause
     exit /b 1
 )
-call :ColorEcho %GREEN% "[成功]" & echo  Python版本检查通过。
+call :ColorEcho %GREEN% "[�ɹ�]" & echo  Python�汾���ͨ����
 echo.
 
-REM 检查必要的Python模块
-call :ColorEcho %WHITE% "检查必要的Python模块..."
+REM ����Ҫ��Pythonģ��
+call :ColorEcho %WHITE% "����Ҫ��Pythonģ��..."
 echo.
 
-REM 检查colorama模块
+REM ���coloramaģ��
 python -c "import colorama" >nul 2>&1
 if %ERRORLEVEL% neq 0 (
-    call :ColorEcho %YELLOW% "[信息]" & echo  未找到colorama模块，尝试安装...
+    call :ColorEcho %YELLOW% "[��Ϣ]" & echo  δ�ҵ�coloramaģ�飬���԰�װ...
     if %IS_ADMIN% EQU 1 (
         python -m pip install colorama
         if %ERRORLEVEL% neq 0 (
-            call :ColorEcho %YELLOW% "[警告]" & echo  无法安装colorama模块。脚本将继续运行，但没有彩色输出。
+            call :ColorEcho %YELLOW% "[����]" & echo  �޷���װcoloramaģ�顣�ű����������У���û�в�ɫ�����
         ) else (
-            call :ColorEcho %GREEN% "[成功]" & echo  colorama模块已安装。
+            call :ColorEcho %GREEN% "[�ɹ�]" & echo  coloramaģ���Ѱ�װ��
         )
     ) else (
-        call :ColorEcho %YELLOW% "[警告]" & echo  需要管理员权限来安装colorama模块。
-        echo 脚本将继续运行，但没有彩色输出。
-        echo 您可以手动运行: pip install colorama
+        call :ColorEcho %YELLOW% "[����]" & echo  ��Ҫ����ԱȨ������װcoloramaģ�顣
+        echo �ű����������У���û�в�ɫ�����
+        echo �������ֶ�����: pip install colorama
     )
 ) else (
-    call :ColorEcho %GREEN% "[成功]" & echo  colorama模块已安装。
+    call :ColorEcho %GREEN% "[�ɹ�]" & echo  coloramaģ���Ѱ�װ��
 )
 echo.
 
-REM 检查系统临时目录权限
-call :ColorEcho %WHITE% "检查系统权限..."
+REM ���ϵͳ��ʱĿ¼Ȩ��
+call :ColorEcho %WHITE% "���ϵͳȨ��..."
 echo.
 set TEMP_TEST_FILE=%TEMP%\stm32_clean_test_%RANDOM%.tmp
 echo test > "%TEMP_TEST_FILE%" 2>nul
 if not exist "%TEMP_TEST_FILE%" (
-    call :ColorEcho %YELLOW% "[警告]" & echo  无法写入临时目录。某些功能可能受限。
+    call :ColorEcho %YELLOW% "[����]" & echo  �޷�д����ʱĿ¼��ĳЩ���ܿ������ޡ�
 ) else (
     del "%TEMP_TEST_FILE%" >nul 2>&1
-    call :ColorEcho %GREEN% "[成功]" & echo  系统权限检查通过。
+    call :ColorEcho %GREEN% "[�ɹ�]" & echo  ϵͳȨ�޼��ͨ����
 )
 echo.
 
-call :ColorEcho %WHITE% "环境检查完成。"
+call :ColorEcho %WHITE% "���������ɡ�"
 echo.
 
-REM 运行Python脚本，传递所有命令行参数
-REM 如果没有参数，则默认使用当前目录
+REM ����Python�ű����������������в���
+REM ���û�в�������Ĭ��ʹ�õ�ǰĿ¼
 if "%1"=="" (
-    call :ColorEcho %CYAN% "没有指定参数，默认清理当前目录..."
+    call :ColorEcho %CYAN% "û��ָ��������Ĭ��������ǰĿ¼..."
     echo.
     python "%~dp0stm32_project_clean.py" .
 ) else (
     python "%~dp0stm32_project_clean.py" %*
 )
 
-REM 如果是双击运行，暂停以查看输出
+REM �����˫�����У���ͣ�Բ鿴���
 echo.
 pause
 
-REM ===== 函数定义 =====
+REM ===== �������� =====
 
 :DefineColorEcho
-REM 定义颜色输出函数
+REM ������ɫ�������
 set "ESC="
 for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (
   set "ESC=%%b"
@@ -118,9 +118,9 @@ for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1)
 exit /b
 
 :ColorEcho
-REM 使用颜色输出文本
-REM 参数1: 颜色代码
-REM 参数2: 文本
+REM ʹ����ɫ����ı�
+REM ����1: ��ɫ����
+REM ����2: �ı�
 setlocal EnableDelayedExpansion
 echo !ESC![%~1m%~2!ESC![0m
 endlocal
