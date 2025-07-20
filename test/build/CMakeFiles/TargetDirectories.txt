@@ -1,9 +1,0 @@
-/home/dennis/Desktop/workspace/github_projects/stm32_project_clean/test/build/CMakeFiles/test.dir
-/home/dennis/Desktop/workspace/github_projects/stm32_project_clean/test/build/CMakeFiles/edit_cache.dir
-/home/dennis/Desktop/workspace/github_projects/stm32_project_clean/test/build/CMakeFiles/rebuild_cache.dir
-/home/dennis/Desktop/workspace/github_projects/stm32_project_clean/test/build/cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir
-/home/dennis/Desktop/workspace/github_projects/stm32_project_clean/test/build/cmake/stm32cubemx/CMakeFiles/edit_cache.dir
-/home/dennis/Desktop/workspace/github_projects/stm32_project_clean/test/build/cmake/stm32cubemx/CMakeFiles/rebuild_cache.dir
-/home/dennis/Desktop/workspace/github_projects/stm32_project_clean/test/build/user/CMakeFiles/user_objects.dir
-/home/dennis/Desktop/workspace/github_projects/stm32_project_clean/test/build/user/CMakeFiles/edit_cache.dir
-/home/dennis/Desktop/workspace/github_projects/stm32_project_clean/test/build/user/CMakeFiles/rebuild_cache.dir
